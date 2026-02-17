@@ -29,7 +29,8 @@ describe("Dessert Store flows", () => {
     const cartAside = screen.getByRole("complementary");
 
     const addButtons = screen.getAllByRole("button", { name: /add to cart/i });
-    await user.click(addButtons[0]);
+    expect(addButtons.length).toBeGreaterThan(0);
+    await user.click(addButtons[0]!);
 
     expect(screen.getByText(/Your Cart \(1\)/)).toBeInTheDocument();
     const orderTotalRow = within(cartAside)
@@ -56,7 +57,8 @@ describe("Dessert Store flows", () => {
     const cartAside = screen.getByRole("complementary");
 
     const addButtons = screen.getAllByRole("button", { name: /add to cart/i });
-    await user.click(addButtons[0]);
+    expect(addButtons.length).toBeGreaterThan(0);
+    await user.click(addButtons[0]!);
 
     expect(screen.getByText(/Your Cart \(1\)/)).toBeInTheDocument();
 
