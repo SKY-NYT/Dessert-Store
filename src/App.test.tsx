@@ -22,6 +22,13 @@ describe("Dessert Store flows", () => {
     document.body.style.overflow = "";
   });
 
+  it("does not show Confirm Order when cart is empty", () => {
+    renderApp();
+
+    const cartAside = screen.getByRole("complementary");
+    expect(within(cartAside).queryByRole("button", { name: /confirm order/i })).toBeNull();
+  });
+
   it("adds item to cart, updates totals, and confirms order", async () => {
     const user = userEvent.setup();
     renderApp();
@@ -125,6 +132,20 @@ describe("Dessert Store flows", () => {
 
     expect(screen.getByText(/Your Cart \(2\)/)).toBeInTheDocument();
     expect(within(cartAside).getByText(/Waffle with Berries/i)).toBeInTheDocument();
+  });
+
+  it("handles invalid localStorage JSON without crashing", () => {
+    localStorage.setItem("dessert_cart", "not-json");
+
+    expect(() => renderApp()).not.toThrow();
+    expect(screen.getByText(/Your Cart \(0\)/)).toBeInTheDocument();
+  });
+
+  it("ignores unexpected localStorage shapes without crashing", () => {
+    localStorage.setItem("dessert_cart", JSON.stringify({ bad: "data" }));
+
+    expect(() => renderApp()).not.toThrow();
+    expect(screen.getByText(/Your Cart \(0\)/)).toBeInTheDocument();
   });
 
   it("persists cart updates to localStorage", async () => {
