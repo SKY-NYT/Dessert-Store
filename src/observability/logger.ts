@@ -26,7 +26,7 @@ export function logEvent(
 
   try {
     const fn = console[level] ?? console.info;
-    fn(message, { timestamp, ...payload });
+    fn(message, { ...payload, timestamp });
   } catch {
     // Never let logging break the app.
   }

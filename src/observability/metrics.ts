@@ -20,7 +20,11 @@ export function getMetric(name: MetricName) {
 }
 
 export function snapshotMetrics() {
-  return Object.fromEntries(counters.entries()) as Record<MetricName, number>;
+  const snapshot: Partial<Record<MetricName, number>> = {};
+  for (const [name, value] of counters.entries()) {
+    snapshot[name] = value;
+  }
+  return snapshot;
 }
 
 export function resetMetrics() {
