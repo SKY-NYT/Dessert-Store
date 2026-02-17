@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import { CartProvider } from "./context/CartContext";
 import { App } from "./App";
 import type { CartItem } from "./types";
+import { getMetric, resetMetrics } from "./observability/metrics";
 
 function renderApp() {
   return render(
@@ -20,6 +21,7 @@ describe("Dessert Store flows", () => {
   beforeEach(() => {
     localStorage.clear();
     document.body.style.overflow = "";
+    resetMetrics();
   });
 
   it("does not show Confirm Order when cart is empty", () => {
@@ -168,6 +170,7 @@ describe("Dessert Store flows", () => {
 
     expect(() => renderApp()).not.toThrow();
     expect(screen.getByText(/Your Cart \(0\)/)).toBeInTheDocument();
+    expect(getMetric("storage_read_failed")).toBe(1);
   });
 
   it("ignores unexpected localStorage shapes without crashing", () => {

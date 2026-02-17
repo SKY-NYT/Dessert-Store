@@ -2,6 +2,8 @@ import { createContext, useReducer, useEffect, useCallback } from "react";
 import type { ReactNode } from "react";
 import type { CartItem, Dessert } from "../types";
 import { cartReducer } from "./cartReducer";
+import { incrementMetric } from "../observability/metrics";
+import { logEvent } from "../observability/logger";
 
 export interface CartContextType {
   cart: CartItem[];
@@ -44,6 +46,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
         );
       });
     } catch {
+      incrementMetric("storage_read_failed");
+      logEvent("storage_read_failed", { key: "dessert_cart" }, "warn");
       return [];
     }
   });
@@ -52,26 +56,52 @@ export function CartProvider({ children }: { children: ReactNode }) {
     try {
       localStorage.setItem("dessert_cart", JSON.stringify(cart));
     } catch {
+      incrementMetric("storage_write_failed");
+      logEvent(
+        "storage_write_failed",
+        { key: "dessert_cart", items: cart.length },
+        "warn",
+      );
       // ignore write failures (e.g., storage full / blocked)
     }
   }, [cart]);
 
   const addItem = useCallback(
-    (product: Dessert) => dispatch({ type: "ADD_ITEM", payload: product }),
+    (product: Dessert) => {
+      incrementMetric("cart_add");
+      logEvent(
+        "cart_add",
+        { name: product.name, price: product.price, category: product.category },
+        "info",
+      );
+      dispatch({ type: "ADD_ITEM", payload: product });
+    },
     [],
   );
 
   const removeItem = useCallback(
-    (name: string) => dispatch({ type: "REMOVE_ITEM", payload: name }),
+    (name: string) => {
+      incrementMetric("cart_remove");
+      logEvent("cart_remove", { name }, "info");
+      dispatch({ type: "REMOVE_ITEM", payload: name });
+    },
     [],
   );
 
   const decrementItem = useCallback(
-    (name: string) => dispatch({ type: "DECREMENT_ITEM", payload: name }),
+    (name: string) => {
+      incrementMetric("cart_decrement");
+      logEvent("cart_decrement", { name }, "info");
+      dispatch({ type: "DECREMENT_ITEM", payload: name });
+    },
     [],
   );
 
-  const clearCart = useCallback(() => dispatch({ type: "CLEAR_CART" }), []);
+  const clearCart = useCallback(() => {
+    incrementMetric("cart_clear");
+    logEvent("cart_clear", {}, "info");
+    dispatch({ type: "CLEAR_CART" });
+  }, []);
 
   return (
     <CartContext.Provider
