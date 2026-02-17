@@ -24,9 +24,10 @@ describe("Dessert Store flows", () => {
 
   it("does not show Confirm Order when cart is empty", () => {
     renderApp();
-
     const cartAside = screen.getByRole("complementary");
-    expect(within(cartAside).queryByRole("button", { name: /confirm order/i })).toBeNull();
+    expect(
+      within(cartAside).queryByRole("button", { name: /confirm order/i }),
+    ).toBeNull();
   });
 
   it("adds item to cart, updates totals, and confirms order", async () => {
@@ -92,16 +93,40 @@ describe("Dessert Store flows", () => {
     expect(screen.getByText(/Your Cart \(1\)/)).toBeInTheDocument();
   });
 
-  it("removes item from cart and returns to empty state", async () => {
+  it("decrementing from 1 removes the item and returns to empty cart state", async () => {
+    const user = userEvent.setup();
+    renderApp();
+
+    const cartAside = screen.getByRole("complementary");
+    const addButtons = screen.getAllByRole("button", { name: /add to cart/i });
+    await user.click(addButtons[0]);
+
+    expect(screen.getByText(/Your Cart \(1\)/)).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: /decrease quantity/i }));
+
+    expect(screen.getByText(/Your Cart \(0\)/)).toBeInTheDocument();
+    expect(
+      within(cartAside).getByText(/Your added items will appear here/i),
+    ).toBeInTheDocument();
+
+    // Product card should return to "Add to Cart"
+    expect(
+      screen.getAllByRole("button", { name: /add to cart/i }).length,
+    ).toBeGreaterThan(0);
+  });
+
+  it("removes an item via cart remove button", async () => {
     const user = userEvent.setup();
     renderApp();
 
     const cartAside = screen.getByRole("complementary");
     await user.click(screen.getAllByRole("button", { name: /add to cart/i })[0]);
-
     expect(screen.getByText(/Your Cart \(1\)/)).toBeInTheDocument();
 
-    await user.click(within(cartAside).getByRole("button", { name: /remove item/i }));
+    await user.click(
+      within(cartAside).getByRole("button", { name: /remove item/i }),
+    );
 
     expect(screen.getByText(/Your Cart \(0\)/)).toBeInTheDocument();
     expect(
@@ -129,7 +154,6 @@ describe("Dessert Store flows", () => {
     renderApp();
 
     const cartAside = screen.getByRole("complementary");
-
     expect(screen.getByText(/Your Cart \(2\)/)).toBeInTheDocument();
     expect(within(cartAside).getByText(/Waffle with Berries/i)).toBeInTheDocument();
   });
@@ -147,7 +171,6 @@ describe("Dessert Store flows", () => {
     expect(() => renderApp()).not.toThrow();
     expect(screen.getByText(/Your Cart \(0\)/)).toBeInTheDocument();
   });
-
   it("persists cart updates to localStorage", async () => {
     const user = userEvent.setup();
     renderApp();
