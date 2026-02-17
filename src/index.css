@@ -1,0 +1,107 @@
+@import "tailwindcss";
+@font-face {
+  font-family: 'Red Hat Text';
+  src: url('./assets/fonts/RedHatText-VariableFont_wght.ttf');
+  font-weight: 100 900; 
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+ 
+  --spacing-1440: 90rem;    
+  --spacing-1216: 76rem;   
+  --spacing-800: 50rem;     
+  --spacing-384: 24rem;     
+
+
+  --spacing-800: 4rem; 
+  --spacing-500: 2.5rem;   
+  --spacing-400: 2rem;      
+  --spacing-300: 1.5rem;    
+  --spacing-200: 1rem;      
+  --spacing-150: 0.75rem;   
+  --spacing-100: 0.5rem;    
+  --spacing-50: 0.25rem; 
+     
+
+
+  --spacing-69: 4.3125rem;  
+  
+
+
+  --color-preset-red: #C73B0F;
+  --color-preset-green: #1EA575;
+  --color-preset-rose-900: #260F08;
+  --color-preset-rose-500: #87635A;
+  --color-preset-rose-400: #AD8A85;
+  --color-preset-rose-300: #CAAFA7;
+  --color-preset-rose-100: #F5EEEC;
+  --color-preset-rose-50: #FCF8F6;
+  --color-preset-black: #000000;
+  --color-preset-white: #FFFFFF;
+
+
+ 
+--font-sans: "Red Hat Text";
+  --font-weight-regular: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --font-size-p1: 2.5rem;
+  --font-size-p1--line-height: 1.2;
+  
+  --font-size-p2: 1.5rem;
+  --font-size-p2--line-height: 1.25;
+
+  --font-size-p3: 1rem;
+  --font-size-p3--line-height: 1.5;
+
+  --font-size-p4: 0.875rem;
+  --font-size-p4--line-height: 1.5;
+
+
+
+}
+
+
+@utility bg-red-hover {
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), #C73B0F !important;
+}
+
+
+@utility text-p1 {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-p1);
+  line-height: var(--font-size-p1--line-height);
+  font-weight: var(--font-weight-bold);
+}
+
+@utility text-p2 {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-p2);
+  line-height: var(--font-size-p2--line-height);
+  font-weight: var(--font-weight-bold);
+}
+
+@utility text-p3 {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-p3);
+  line-height: var(--font-size-p3--line-height);
+  font-weight: var(--font-weight-semibold);
+}
+
+@utility text-p4 {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-p4);
+  line-height: var(--font-size-p4--line-height);
+  font-weight: var(--font-weight-regular);
+}
+
+@utility text-p4b {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-p4);
+  line-height: var(--font-size-p4--line-height);
+  font-weight: var(--font-weight-semibold);
+}
+
