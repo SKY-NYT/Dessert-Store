@@ -18,11 +18,42 @@ export const CartContext = createContext<CartContextType | undefined>(
 export function CartProvider({ children }: { children: ReactNode }) {
   const [cart, dispatch] = useReducer(cartReducer, [], () => {
     const localData = localStorage.getItem("dessert_cart");
-    return localData ? JSON.parse(localData) : [];
+    if (!localData) return [];
+
+    try {
+      const parsed = JSON.parse(localData);
+      if (!Array.isArray(parsed)) return [];
+
+      return parsed.filter((item: unknown) => {
+        if (typeof item !== "object" || item === null) return false;
+        const record = item as Record<string, unknown>;
+        const image = record.image as Record<string, unknown> | undefined;
+
+        return (
+          typeof record.name === "string" &&
+          typeof record.category === "string" &&
+          typeof record.price === "number" &&
+          typeof record.quantity === "number" &&
+          record.quantity > 0 &&
+          typeof image === "object" &&
+          image !== null &&
+          typeof image.thumbnail === "string" &&
+          typeof image.mobile === "string" &&
+          typeof image.tablet === "string" &&
+          typeof image.desktop === "string"
+        );
+      });
+    } catch {
+      return [];
+    }
   });
 
   useEffect(() => {
-    localStorage.setItem("dessert_cart", JSON.stringify(cart));
+    try {
+      localStorage.setItem("dessert_cart", JSON.stringify(cart));
+    } catch {
+      // ignore write failures (e.g., storage full / blocked)
+    }
   }, [cart]);
 
   const addItem = useCallback(
