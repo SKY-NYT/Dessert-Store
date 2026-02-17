@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import { CartProvider } from "./context/CartContext";
 import { App } from "./App";
 import type { CartItem } from "./types";
+import { getMetric, resetMetrics } from "./observability/metrics";
 
 function renderApp() {
   return render(
@@ -20,6 +21,7 @@ describe("Dessert Store flows", () => {
   beforeEach(() => {
     localStorage.clear();
     document.body.style.overflow = "";
+    resetMetrics();
   });
 
   it("does not show Confirm Order when cart is empty", () => {
@@ -106,7 +108,9 @@ describe("Dessert Store flows", () => {
 
     expect(screen.getByText(/Your Cart \(1\)/)).toBeInTheDocument();
 
-    await user.click(screen.getByRole("button", { name: /decrease quantity/i }));
+    await user.click(
+      screen.getByRole("button", { name: /decrease quantity/i }),
+    );
 
     expect(screen.getByText(/Your Cart \(0\)/)).toBeInTheDocument();
     expect(
@@ -160,7 +164,9 @@ describe("Dessert Store flows", () => {
 
     const cartAside = screen.getByRole("complementary");
     expect(screen.getByText(/Your Cart \(2\)/)).toBeInTheDocument();
-    expect(within(cartAside).getByText(/Waffle with Berries/i)).toBeInTheDocument();
+    expect(
+      within(cartAside).getByText(/Waffle with Berries/i),
+    ).toBeInTheDocument();
   });
 
   it("handles invalid localStorage JSON without crashing", () => {
@@ -168,6 +174,7 @@ describe("Dessert Store flows", () => {
 
     expect(() => renderApp()).not.toThrow();
     expect(screen.getByText(/Your Cart \(0\)/)).toBeInTheDocument();
+    expect(getMetric("storage_read_failed")).toBe(1);
   });
 
   it("ignores unexpected localStorage shapes without crashing", () => {
@@ -189,6 +196,9 @@ describe("Dessert Store flows", () => {
 
     const parsed = JSON.parse(stored as string) as CartItem[];
     expect(parsed).toHaveLength(1);
-    expect(parsed[0]).toMatchObject({ name: "Waffle with Berries", quantity: 1 });
+    expect(parsed[0]).toMatchObject({
+      name: "Waffle with Berries",
+      quantity: 1,
+    });
   });
 });

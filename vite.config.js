@@ -1,15 +1,19 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 import svgr from "vite-plugin-svgr";
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss(),svgr()],
+  plugins: [react(), tailwindcss(), svgr()],
   test: {
     environment: "jsdom",
     setupFiles: "./src/test/setup.ts",
     globals: true,
     css: true,
+    coverage: {
+      provider: "v8",
+      reporter: ["text", "html"],
+    },
   },
-})
+});
