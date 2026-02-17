@@ -25,7 +25,8 @@ describe("cartReducer", () => {
     const state: CartItem[] = [{ ...waffle, quantity: 1 }];
     const next = cartReducer(state, { type: "ADD_ITEM", payload: waffle });
     expect(next).toHaveLength(1);
-    expect(next[0].quantity).toBe(2);
+    expect(next[0]).toBeDefined();
+    expect(next[0]!.quantity).toBe(2);
   });
 
   it("decrements quantity and keeps item when quantity stays above 0", () => {
@@ -35,7 +36,8 @@ describe("cartReducer", () => {
       payload: waffle.name,
     });
     expect(next).toHaveLength(1);
-    expect(next[0].quantity).toBe(1);
+    expect(next[0]).toBeDefined();
+    expect(next[0]!.quantity).toBe(1);
   });
 
   it("decrements quantity and removes item at 0", () => {

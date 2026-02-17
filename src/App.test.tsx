@@ -39,7 +39,8 @@ describe("Dessert Store flows", () => {
     const cartAside = screen.getByRole("complementary");
 
     const addButtons = screen.getAllByRole("button", { name: /add to cart/i });
-    await user.click(addButtons[0]);
+    expect(addButtons.length).toBeGreaterThan(0);
+    await user.click(addButtons[0]!);
 
     expect(screen.getByText(/Your Cart \(1\)/)).toBeInTheDocument();
     const orderTotalRow = within(cartAside)
@@ -71,7 +72,8 @@ describe("Dessert Store flows", () => {
     const cartAside = screen.getByRole("complementary");
 
     const addButtons = screen.getAllByRole("button", { name: /add to cart/i });
-    await user.click(addButtons[0]);
+    expect(addButtons.length).toBeGreaterThan(0);
+    await user.click(addButtons[0]!);
 
     expect(screen.getByText(/Your Cart \(1\)/)).toBeInTheDocument();
 
@@ -99,7 +101,8 @@ describe("Dessert Store flows", () => {
 
     const cartAside = screen.getByRole("complementary");
     const addButtons = screen.getAllByRole("button", { name: /add to cart/i });
-    await user.click(addButtons[0]);
+    expect(addButtons.length).toBeGreaterThan(0);
+    await user.click(addButtons[0]!);
 
     expect(screen.getByText(/Your Cart \(1\)/)).toBeInTheDocument();
 
@@ -121,7 +124,9 @@ describe("Dessert Store flows", () => {
     renderApp();
 
     const cartAside = screen.getByRole("complementary");
-    await user.click(screen.getAllByRole("button", { name: /add to cart/i })[0]);
+    const addButtons = screen.getAllByRole("button", { name: /add to cart/i });
+    expect(addButtons.length).toBeGreaterThan(0);
+    await user.click(addButtons[0]!);
     expect(screen.getByText(/Your Cart \(1\)/)).toBeInTheDocument();
 
     await user.click(
@@ -175,7 +180,9 @@ describe("Dessert Store flows", () => {
     const user = userEvent.setup();
     renderApp();
 
-    await user.click(screen.getAllByRole("button", { name: /add to cart/i })[0]);
+    const addButtons = screen.getAllByRole("button", { name: /add to cart/i });
+    expect(addButtons.length).toBeGreaterThan(0);
+    await user.click(addButtons[0]!);
 
     const stored = localStorage.getItem("dessert_cart");
     expect(stored).toBeTruthy();
