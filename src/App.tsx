@@ -24,7 +24,6 @@ export function App() {
     setIsOrderConfirmed(false);
   }, [clearCart]);
 
-
   return (
     <div className="bg-preset-rose-50 ">
       <div className="p-6 md:p-10 lg:py-22 lg:px-10 max-w-1440 mx-auto h-auto min-h-screen ">
@@ -35,11 +34,7 @@ export function App() {
         </main>
       </div>
 
-      {isOrderConfirmed && (
-        <OrderModal
-          onNewOrder={handleStartNewOrder}
-        />
-      )}
+      {isOrderConfirmed && <OrderModal onNewOrder={handleStartNewOrder} />}
     </div>
   );
 }

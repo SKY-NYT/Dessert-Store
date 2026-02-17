@@ -11,7 +11,10 @@ interface ErrorBoundaryState {
   hasError: boolean;
 }
 
-export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+export class ErrorBoundary extends Component<
+  ErrorBoundaryProps,
+  ErrorBoundaryState
+> {
   state: ErrorBoundaryState = { hasError: false };
 
   static getDerivedStateFromError() {
@@ -34,7 +37,9 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
     return (
       <div className="bg-preset-rose-50 min-h-screen p-6 md:p-10">
-        <h1 className="text-preset-rose-900 text-xl font-bold">Something went wrong</h1>
+        <h1 className="text-preset-rose-900 text-xl font-bold">
+          Something went wrong
+        </h1>
         <p className="text-preset-rose-500 mt-2">Please refresh the page.</p>
       </div>
     );

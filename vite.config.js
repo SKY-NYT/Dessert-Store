@@ -11,5 +11,9 @@ export default defineConfig({
     setupFiles: "./src/test/setup.ts",
     globals: true,
     css: true,
+    coverage: {
+      provider: "v8",
+      reporter: ["text", "html"],
+    },
   },
 })

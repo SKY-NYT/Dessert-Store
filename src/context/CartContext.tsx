@@ -66,36 +66,27 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, [cart]);
 
-  const addItem = useCallback(
-    (product: Dessert) => {
-      incrementMetric("cart_add");
-      logEvent(
-        "cart_add",
-        { name: product.name, price: product.price, category: product.category },
-        "info",
-      );
-      dispatch({ type: "ADD_ITEM", payload: product });
-    },
-    [],
-  );
+  const addItem = useCallback((product: Dessert) => {
+    incrementMetric("cart_add");
+    logEvent(
+      "cart_add",
+      { name: product.name, price: product.price, category: product.category },
+      "info",
+    );
+    dispatch({ type: "ADD_ITEM", payload: product });
+  }, []);
 
-  const removeItem = useCallback(
-    (name: string) => {
-      incrementMetric("cart_remove");
-      logEvent("cart_remove", { name }, "info");
-      dispatch({ type: "REMOVE_ITEM", payload: name });
-    },
-    [],
-  );
+  const removeItem = useCallback((name: string) => {
+    incrementMetric("cart_remove");
+    logEvent("cart_remove", { name }, "info");
+    dispatch({ type: "REMOVE_ITEM", payload: name });
+  }, []);
 
-  const decrementItem = useCallback(
-    (name: string) => {
-      incrementMetric("cart_decrement");
-      logEvent("cart_decrement", { name }, "info");
-      dispatch({ type: "DECREMENT_ITEM", payload: name });
-    },
-    [],
-  );
+  const decrementItem = useCallback((name: string) => {
+    incrementMetric("cart_decrement");
+    logEvent("cart_decrement", { name }, "info");
+    dispatch({ type: "DECREMENT_ITEM", payload: name });
+  }, []);
 
   const clearCart = useCallback(() => {
     incrementMetric("cart_clear");

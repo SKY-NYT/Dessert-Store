@@ -1,0 +1,247 @@
+{\rtf1\ansi\deff0
+{\fonttbl{\f0 Calibri;}}
+\viewkind4\uc1
+\pard\sa200\sl276\slmult1\f0\fs48\b Dessert Store \u8212? Agile \u38? DevOps Scrum Pack\b0\par
+\fs22 Date: February 17, 2026\par
+\fs22 Repository: https://github.com/SKY-NYT/Dessert-Store\par
+\par
+\fs28\b Table of Contents\b0\par
+\fs22 1. Document Overview\par
+2. Product Vision\par
+3. Product Backlog\par
+4. Definition of Done (DoD)\par
+5. Sprint 1 Plan\par
+6. Sprint 1 Review\par
+7. Sprint 1 Retrospective\par
+8. Sprint 2 Plan\par
+9. Sprint 2 Review\par
+10. Sprint 2 Retrospective\par
+11. Submission Checklist\par
+\par
+\fs32\b 1. Document Overview\b0\par
+\fs22 This pack contains the planning, sprint execution notes, sprint reviews, and retrospectives required by the Agile \u38? DevOps in Practice assignment.\par
+\par
+\fs22 Start here (source files in the docs folder):\par
+\fs22 \u8226? Product vision\u58? 01_Product-Vision.md\par
+\fs22 \u8226? Backlog\u58? 02_Product-Backlog.md\par
+\fs22 \u8226? Definition of Done\u58? 03_Definition-of-Done.md\par
+\fs22 \u8226? Sprint plans\u58? 04_Sprint-1-Plan.md, 05_Sprint-2-Plan.md\par
+\fs22 \u8226? Submission checklist\u58? 06_Submission-Checklist.md\par
+\par
+\fs32\b 2. Product Vision\b0\par
+\fs22 Dessert Store is a lightweight web app that lets users browse desserts, add them to a cart, adjust quantities, and confirm an order with a clear summary.\par
+\par
+\fs22 The goal is a fast, reliable, and accessible ordering flow with cart state that persists across page refreshes.\par
+\par
+\fs32\b 3. Product Backlog\b0\par
+\fs22 Scales used:\par
+\fs22 \u8226? Priority\u58? P0 (highest) \u8594? P2 (lower)\par
+\fs22 \u8226? Estimation\u58? story points (SP) using relative sizing\par
+\par
+\fs26\b Backlog Items\b0\par
+\par
+\fs24\b 1) Add desserts to cart and increase quantity\b0\par
+\fs22 Priority: P0\par
+\fs22 Estimate: 3 SP\par
+\fs22 User story: As a user, I can add a dessert to my cart and increase its quantity so I can order multiple portions.\par
+\fs22 Acceptance criteria:\par
+\fs22 \u8226? Clicking \u8220?Add to Cart\u8221? adds the item to the cart with quantity 1.\par
+\fs22 \u8226? When quantity \u62? 0, the product card shows a stepper with \u8220?Increase\u8221? and \u8220?Decrease\u8221?.\par
+\fs22 \u8226? Increasing quantity updates the cart count and totals.\par
+\par
+\fs24\b 2) Decrease quantity and remove at zero\b0\par
+\fs22 Priority: P0\par
+\fs22 Estimate: 3 SP\par
+\fs22 User story: As a user, I can decrease quantity so I can correct my order.\par
+\fs22 Acceptance criteria:\par
+\fs22 \u8226? Clicking \u8220?Decrease quantity\u8221? reduces the quantity by 1.\par
+\fs22 \u8226? If quantity becomes 0, the item disappears from the cart.\par
+\fs22 \u8226? When the cart becomes empty, the empty-cart message is shown.\par
+\par
+\fs24\b 3) Remove an item from the cart\b0\par
+\fs22 Priority: P0\par
+\fs22 Estimate: 2 SP\par
+\fs22 User story: As a user, I can remove an item completely so I can quickly discard something I don\u8217?t want.\par
+\fs22 Acceptance criteria:\par
+\fs22 \u8226? Clicking \u8220?Remove item\u8221? deletes the item from the cart.\par
+\fs22 \u8226? Cart count and totals update immediately.\par
+\par
+\fs24\b 4) Confirm order and show order summary modal\b0\par
+\fs22 Priority: P0\par
+\fs22 Estimate: 3 SP\par
+\fs22 User story: As a user, I can confirm my order so I can see a final summary before starting a new order.\par
+\fs22 Acceptance criteria:\par
+\fs22 \u8226? Clicking \u8220?Confirm Order\u8221? shows an \u8220?Order Confirmed\u8221? modal.\par
+\fs22 \u8226? The modal lists each item, its quantity, and line total.\par
+\fs22 \u8226? The modal shows the final order total.\par
+\par
+\fs24\b 5) Persist cart across refresh\b0\par
+\fs22 Priority: P1\par
+\fs22 Estimate: 2 SP\par
+\fs22 User story: As a user, my cart is saved so I don\u8217?t lose it when I refresh the page.\par
+\fs22 Acceptance criteria:\par
+\fs22 \u8226? Cart loads initial state from localStorage key dessert_cart.\par
+\fs22 \u8226? Updates write back to localStorage.\par
+\par
+\fs24\b 6) CI pipeline runs lint, tests, and build\b0\par
+\fs22 Priority: P0\par
+\fs22 Estimate: 2 SP\par
+\fs22 User story: As a developer, I have CI so I can catch problems before merging/deploying.\par
+\fs22 Acceptance criteria:\par
+\fs22 \u8226? GitHub Actions runs on push and pull requests.\par
+\fs22 \u8226? CI runs npm ci, npm run lint, npm test, and npm run build.\par
+\fs22 \u8226? CI fails when lint or tests fail.\par
+\par
+\fs24\b 7) Basic monitoring/logging for key events\b0\par
+\fs22 Priority: P1\par
+\fs22 Estimate: 2 SP\par
+\fs22 User story: As a developer, I can observe key actions/errors so I can troubleshoot issues faster.\par
+\fs22 Acceptance criteria:\par
+\fs22 \u8226? Key actions (add/remove/confirm/new order) produce structured logs.\par
+\fs22 \u8226? Errors are captured via an error boundary and logged.\par
+\par
+\fs24\b 8) Evidence artifacts for sprint reviews and retrospectives\b0\par
+\fs22 Priority: P0\par
+\fs22 Estimate: 2 SP\par
+\fs22 User story: As a student, I can present clear evidence so the assessor can verify my Agile \u38? DevOps practice.\par
+\fs22 Acceptance criteria:\par
+\fs22 \u8226? Sprint Review and Retrospective docs exist for Sprint 1 and Sprint 2.\par
+\fs22 \u8226? CI/test evidence docs include links/placeholders for screenshots or logs.\par
+\par
+\fs32\b 4. Definition of Done (DoD)\b0\par
+\fs22 A backlog item is considered \u8220?Done\u8221? only when:\par
+\fs22 \u8226? Code implements the acceptance criteria.\par
+\fs22 \u8226? TypeScript builds with npm run build.\par
+\fs22 \u8226? Lint passes with npm run lint.\par
+\fs22 \u8226? Automated tests exist (unit or integration as appropriate) and pass locally and in CI.\par
+\fs22 \u8226? No new console errors in normal user flows.\par
+\fs22 \u8226? Changes are committed with a clear message and small scope.\par
+\fs22 \u8226? Relevant documentation is updated (plans/reviews).\par
+\par
+\fs32\b 5. Sprint 1 Plan\b0\par
+\fs22 Sprint Goal: Deliver the first increment of reliable working software by validating core cart/order flows with automated tests and establishing a CI pipeline.\par
+\par
+\fs22 Selected Backlog Items (2\u8211?3 stories):\par
+\fs22 1. CI pipeline runs lint, tests, and build (2 SP)\par
+\fs22 2. Add desserts to cart and increase quantity (3 SP) \u8212? proven via integration test(s)\par
+\fs22 3. Decrease quantity and remove at zero (3 SP) \u8212? proven via unit + integration test(s)\par
+\par
+\fs22 Total: 8 SP\par
+\par
+\fs22 Notes:\par
+\fs22 \u8226? Primary deliverable is verified behavior + DevOps pipeline (not new UI).\par
+\fs22 \u8226? Commit history should reflect incremental progress (setup \u8594? first tests \u8594? more tests \u8594? CI).\par
+\par
+\fs32\b 6. Sprint 1 Review\b0\par
+\fs22 Sprint Goal: Deliver the first increment of reliable working software by validating core cart/order flows with automated tests and establishing a CI pipeline.\par
+\par
+\fs22 Completed Items:\par
+\fs22 \u8226? CI pipeline runs lint, tests, and build\par
+\fs22 \u8226? Core cart and ordering flows covered by automated tests\par
+\par
+\fs22 Evidence (references):\par
+\fs22 \u8226? CI workflow file\u58? .github/workflows/ci.yml\par
+\fs22 \u8226? Tests added\u58? src/context/cartReducer.test.ts and src/App.test.tsx\par
+\par
+\fs22 Demo Notes (what to show):\par
+\fs22 \u8226? Add an item to cart from a dessert card\par
+\fs22 \u8226? Increase/decrease quantity using the stepper\par
+\fs22 \u8226? Confirm order to open the order modal\par
+\fs22 \u8226? Start new order to clear cart\par
+\par
+\fs32\b 7. Sprint 1 Retrospective\b0\par
+\fs22 What went well:\par
+\fs22 \u8226? Breaking work into small commits made it easy to track progress.\par
+\fs22 \u8226? Starting with reducer unit tests reduced risk before adding UI tests.\par
+\fs22 \u8226? A simple CI workflow (lint + test + build) gives fast feedback.\par
+\par
+\fs22 What didn\u8217?t go well:\par
+\fs22 \u8226? UI tests initially failed due to ambiguous text matches (prices appear in multiple places).\par
+\fs22 \u8226? Test runner failed when there were zero test files (needed at least one test to pass).\par
+\par
+\fs22 Improvements for Sprint 2 (commit to at least 2):\par
+\fs22 1. Scope UI assertions to specific regions (use within(...)) to avoid brittle tests.\par
+\fs22 2. Add basic logging/monitoring (structured logs + error boundary) to improve troubleshooting.\par
+\fs22 3. Add persistence-focused tests for localStorage rehydration and updates.\par
+\par
+\fs32\b 8. Sprint 2 Plan\b0\par
+\fs22 Sprint Goal: Apply Sprint 1 learnings, improve observability, and deliver the next increment with monitoring/logging and expanded coverage.\par
+\par
+\fs22 Selected Backlog Items (2\u8211?3 stories):\par
+\fs22 1. Basic monitoring/logging for key events (2 SP)\par
+\fs22 2. Persist cart across refresh (2 SP) \u8212? add tests to validate safe rehydration\par
+\fs22 3. Evidence artifacts for sprint reviews and retrospectives (2 SP)\par
+\par
+\fs22 Total: 6 SP\par
+\par
+\fs22 Process Improvements (to apply):\par
+\fs22 \u8226? Keep commits small and message scopes clear.\par
+\fs22 \u8226? Add tests alongside changes (not at the end).\par
+\fs22 \u8226? Ensure CI stays green (fix failures immediately).\par
+\par
+\fs32\b 9. Sprint 2 Review\b0\par
+\fs22 Sprint Goal: Add lightweight monitoring/logging to improve observability of cart + ordering flows and capture runtime errors.\par
+\par
+\fs22 Delivered:\par
+\fs22 \u8226? Client-side event logging for cart and order actions (dev/test only).\par
+\fs22 \u8226? Simple in-memory counters (metrics) for key events.\par
+\fs22 \u8226? Guarded localStorage read/write with failure signals.\par
+\fs22 \u8226? ErrorBoundary + global error handlers for unexpected UI/runtime errors.\par
+\par
+\fs22 Evidence (references):\par
+\fs22 \u8226? CI run on branch: lint + tests pass.\par
+\fs22 \u8226? Metrics/logging code: src/observability/*\par
+\fs22 \u8226? Tests updated to assert storage read failure metric increments.\par
+\par
+\fs22 Demo Script:\par
+\fs22 1. Add item to cart, increment/decrement quantity, remove item.\par
+\fs22 2. Confirm Order, then Start New Order.\par
+\fs22 3. Refresh page to confirm cart persistence still works.\par
+\par
+\fs22 Acceptance Criteria Check:\par
+\fs22 \u8226? Observability added without changing normal UX.\par
+\fs22 \u8226? Logging does not crash the app if console/storage fails.\par
+\fs22 \u8226? CI remains green.\par
+\par
+\fs32\b 10. Sprint 2 Retrospective\b0\par
+\fs22 What went well:\par
+\fs22 \u8226? Observability added with minimal surface area and low risk.\par
+\fs22 \u8226? Tests and CI stayed green after instrumentation.\par
+\par
+\fs22 What didn\u8217?t go well:\par
+\fs22 \u8226? Need clearer separation between product tests and observability tests as the suite grows.\par
+\par
+\fs22 Improvements / Action Items:\par
+\fs22 \u8226? Add one focused unit test for ErrorBoundary fallback behavior.\par
+\fs22 \u8226? Consider a small abstraction for storage access so read/write failures are consistently tracked.\par
+\par
+\fs32\b 11. Submission Checklist\b0\par
+\fs22 Backlog \u38? Sprint Plans\par
+\fs22 \u8226? Product vision\par
+\fs22 \u8226? Complete product backlog (\u8805?5 stories) with acceptance criteria, priority, estimates\par
+\fs22 \u8226? Definition of Done\par
+\fs22 \u8226? Sprint 1 plan (2\u8211?3 selected stories)\par
+\fs22 \u8226? Sprint 2 plan (2\u8211?3 selected stories)\par
+\par
+\fs22 Codebase\par
+\fs22 \u8226? GitHub repository link\par
+\fs22 \u8226? Commit history shows incremental delivery\par
+\par
+\fs22 CI/CD Evidence\par
+\fs22 \u8226? Workflow file in .github/workflows/\par
+\fs22 \u8226? Screenshot(s) or log snippet(s) of successful run\par
+\fs22 \u8226? Screenshot(s) or log snippet(s) of a failed run (optional)\par
+\par
+\fs22 Testing Evidence\par
+\fs22 \u8226? Test files included in repo\par
+\fs22 \u8226? Screenshot(s) or log output of passing tests\par
+\par
+\fs22 Sprint Reviews\par
+\fs22 \u8226? Sprint 1 review doc (what was delivered + evidence)\par
+\fs22 \u8226? Sprint 2 review doc (what was delivered + evidence)\par
+\par
+\fs22 Retrospectives\par
+\fs22 \u8226? Sprint 1 retro (\u8805?2 concrete improvements)\par
+\fs22 \u8226? Sprint 2 retro + final reflection\par
+\par
+}
