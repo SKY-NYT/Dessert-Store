@@ -4,6 +4,7 @@ import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
 import { CartProvider } from "./context/CartContext";
 import { App } from "./App";
+import type { CartItem } from "./types";
 
 function renderApp() {
   return render(
@@ -117,5 +118,43 @@ describe("Dessert Store flows", () => {
     expect(
       within(cartAside).getByText(/Your added items will appear here/i),
     ).toBeInTheDocument();
+  });
+
+  it("rehydrates cart from localStorage on load", () => {
+    const seeded: CartItem[] = [
+      {
+        name: "Waffle with Berries",
+        category: "Waffle",
+        price: 6.5,
+        quantity: 2,
+        image: {
+          thumbnail: "/assets/images/image-waffle-thumbnail.jpg",
+          mobile: "/assets/images/image-waffle-mobile.jpg",
+          tablet: "/assets/images/image-waffle-tablet.jpg",
+          desktop: "/assets/images/image-waffle-desktop.jpg",
+        },
+      },
+    ];
+    localStorage.setItem("dessert_cart", JSON.stringify(seeded));
+
+    renderApp();
+
+    const cartAside = screen.getByRole("complementary");
+    expect(screen.getByText(/Your Cart \(2\)/)).toBeInTheDocument();
+    expect(within(cartAside).getByText(/Waffle with Berries/i)).toBeInTheDocument();
+  });
+
+  it("persists cart updates to localStorage", async () => {
+    const user = userEvent.setup();
+    renderApp();
+
+    await user.click(screen.getAllByRole("button", { name: /add to cart/i })[0]);
+
+    const stored = localStorage.getItem("dessert_cart");
+    expect(stored).toBeTruthy();
+
+    const parsed = JSON.parse(stored as string) as CartItem[];
+    expect(parsed).toHaveLength(1);
+    expect(parsed[0]).toMatchObject({ name: "Waffle with Berries", quantity: 1 });
   });
 });
